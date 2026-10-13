@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trigonometric Ratios in a Right Triangle (SOH-CAH-TOA)</title>
+    <style>
+        :root {
+            --bg-main: #0f172a;
+            --card-bg: #1e293b;
+            --accent-blue: #38bdf8;
+            --accent-indigo: #6366f1;
+            --accent-pink: #f43f5e;
+            --accent-green: #10b981;
+            --accent-amber: #f59e0b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Student Welcome Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .welcome-card {
+            background: var(--card-bg);
+            border: 2px solid var(--accent-blue);
+            border-radius: 20px;
+            padding: 35px;
+            max-width: 480px;
+            width: 90%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+
+        .welcome-card h2 {
+            color: var(--accent-blue);
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .welcome-card p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .input-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--accent-blue);
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 16px;
+            background: #0f172a;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .input-group input:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+        }
+
+        .start-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-indigo));
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.25s;
+        }
+
+        .start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(56, 189, 248, 0.4);
+        }
+
+        /* Header Bar */
+        header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 25px;
+            background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-title h1 {
+            font-size: 1.8rem;
+            color: var(--accent-blue);
+        }
+
+        .header-title p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .student-badge {
+            background: rgba(56, 189, 248, 0.12);
+            border: 1px solid var(--accent-blue);
+            padding: 10px 18px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* Nav Tabs */
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            background: var(--card-bg);
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            padding: 12px 18px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.25s ease;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-main);
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-indigo) 100%);
+            color: #ffffff;
+            border-color: transparent;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            font-size: 1.4rem;
+            color: var(--accent-blue);
+            margin-bottom: 15px;
+        }
+
+        /* Dynamic SVG Visualizer */
+        .visualizer-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.85);
+            border-radius: 14px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        svg.triangle-svg {
+            width: 100%;
+            max-width: 440px;
+            height: 300px;
+            overflow: visible;
+        }
+
+        .slider-control {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            background: var(--card-bg);
+            padding: 10px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .slider-control input[type="range"] {
+            flex: 1;
+            accent-color: var(--accent-blue);
+        }
+
+        .formula-box {
+            background: rgba(15, 23, 42, 0.8);
+            border-left: 4px solid var(--accent-blue);
+            padding: 14px;
+            border-radius: 0 10px 10px 0;
+            margin: 10px 0;
+        }
+
+        .formula-box.soh { border-color: var(--accent-blue); }
+        .formula-box.cah { border-color: var(--accent-green); }
+        .formula-box.toa { border-color: var(--accent-pink); }
+
+        .formula-math {
+            font-size: 1.1rem;
+            font-family: 'Courier New', Courier, monospace;
+            color: #fff;
+        }
+
+        /* Unlocking Game */
+        .unlock-item {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .unlock-btn {
+            background: var(--accent-indigo);
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .answer-badge {
+            display: none;
+            background: var(--accent-green);
+            color: #000;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 6px;
+        }
+
+        /* Quiz Styles */
+        .quiz-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 16px;
+        }
+
+        .quiz-opt {
+            display: block;
+            width: 100%;
+            text-align: left;
+            background: rgba(30, 41, 59, 0.8);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 10px 14px;
+            margin: 6px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .quiz-opt:hover {
+            border-color: var(--accent-blue);
+            background: rgba(56, 189, 248, 0.1);
+        }
+
+        .quiz-opt.selected {
+            border-color: var(--accent-blue);
+            background: rgba(56, 189, 248, 0.2);
+            font-weight: bold;
+        }
+
+        .scenario-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .scenario-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            white-space: nowrap;
+            font-weight: 600;
+        }
+
+        .scenario-btn.active {
+            background: var(--accent-blue);
+            color: #000;
+            border-color: var(--accent-blue);
+        }
+
+        /* Certificate / Final Score Dashboard */
+        .cert-card {
+            background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
+            border: 2px solid var(--accent-amber);
+            border-radius: 20px;
+            padding: 35px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.2);
+            display: none;
+            margin-top: 20px;
+        }
+
+        .cert-score {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--accent-amber);
+            margin: 10px 0;
+        }
+
+        .meta-info-box {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 18px;
+            margin: 20px auto;
+            max-width: 520px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 0.95rem;
+            text-align: left;
+        }
+
+        .action-btn {
+            background: var(--accent-amber);
+            color: #000;
+            font-weight: bold;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 10px 5px;
+            transition: 0.2s;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.03);
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background: rgba(30, 41, 59, 0.9);
+            color: var(--accent-blue);
+        }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; text-align: center; gap: 10px; }
+            .tab-btn { flex: 1 1 45%; padding: 10px; font-size: 0.85rem; }
+        }
+/* Enable smooth touch scrolling for mobile browsers */
+html, body {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: none;
+}
+
+/* Remove blue selection highlight when tapping buttons on mobile */
+button, input, select {
+    -webkit-tap-highlight-color: transparent;
+}
+    </style>
+</head>
+<body>
+
+<!-- STUDENT WELCOME MODAL -->
+<div id="welcome-modal" class="modal-overlay">
+    <div class="welcome-card">
+        <h2>👋 Welcome Student!</h2>
+        <p>Please enter your information to unlock the interactive Trigonometry SOH-CAH-TOA module.</p>
+        <div class="input-group">
+            <label for="student-name-input">Full Name:</label>
+            <input type="text" id="student-name-input" placeholder="e.g. Maria Santos" required>
+        </div>
+        <div class="input-group">
+            <label for="student-section-input">Grade & Section:</label>
+            <input type="text" id="student-section-input" placeholder="e.g. Grade 9 - Newton" required>
+        </div>
+        <button class="start-btn" onclick="startModule()">Start Learning Module 🚀</button>
+    </div>
+</div>
+
+<div class="container">
+    <!-- HEADER -->
+    <header>
+        <div class="header-title">
+            <h1>Trigonometric Ratios in a Right Triangle</h1>
+            <p>SOH - CAH - TOA Interactive Learning Module</p>
+        </div>
+        <div class="student-badge">
+            <span>👤 <span id="display-student-name">Guest Student</span></span>
+            <span style="opacity: 0.5;">|</span>
+            <span id="display-student-section" style="color: var(--accent-blue);">Section</span>
+            <span style="opacity: 0.5;">|</span>
+            <span>⏱️ <span id="display-timer" style="color: var(--accent-amber);">00:00</span></span>
+        </div>
+    </header>
+
+    <!-- NAV TABS -->
+    <nav class="nav-tabs">
+        <button class="tab-btn active" onclick="switchTab('tab-overview')">🎯 Goals & Warm-Up</button>
+        <button class="tab-btn" onclick="switchTab('tab-interactive')">📐 Dynamic Explorer</button>
+        <button class="tab-btn" onclick="switchTab('tab-sohcahtoa')">📖 SOH-CAH-TOA Ratios</button>
+        <button class="tab-btn" onclick="switchTab('tab-practice')">✍️ Guided Practice</button>
+        <button class="tab-btn" onclick="switchTab('tab-realworld')">🏙️ Real-Life Scenarios</button>
+        <button class="tab-btn" onclick="switchTab('tab-hots')">🧠 HOTS Angle Swap</button>
+        <button class="tab-btn" onclick="switchTab('tab-exit')">📝 10-Item Exit Ticket</button>
+    </nav>
+
+    <!-- TAB 1: GOALS & WARM UP -->
+    <section id="tab-overview" class="tab-content active">
+        <div class="grid-2">
+            <div class="card">
+                <h2>🎯 Lesson Goals</h2>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px;">
+                    <li style="display: flex; gap: 10px;">
+                        <span style="background: var(--accent-blue); color: #000; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</span>
+                        <span>Identify <strong>Opposite</strong>, <strong>Adjacent</strong>, and <strong>Hypotenuse</strong> relative to a reference angle (&theta;).</span>
+                    </li>
+                    <li style="display: flex; gap: 10px;">
+                        <span style="background: var(--accent-green); color: #000; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">2</span>
+                        <span>Illustrate real-life objects and situations as right triangles.</span>
+                    </li>
+                    <li style="display: flex; gap: 10px;">
+                        <span style="background: var(--accent-pink); color: #000; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">3</span>
+                        <span>Calculate the correct ratio (&sin;, &cos;, or &tan;) for any right triangle.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>🔑 Unlocking Challenge: Key Terms</h2>
+                <p style="color: var(--text-muted); margin-bottom: 12px; font-size: 0.9rem;">Unlock all 5 keys to reveal the secret concept!</p>
+                
+                <div class="unlock-item">
+                    <span>1. Side directly across from an angle?</span>
+                    <button class="unlock-btn" onclick="unlockKey(this)">Unlock 🔑</button>
+                    <span class="answer-badge">OPPOSITE</span>
+                </div>
+                <div class="unlock-item">
+                    <span>2. Triangle with one 90° angle?</span>
+                    <button class="unlock-btn" onclick="unlockKey(this)">Unlock 🔑</button>
+                    <span class="answer-badge">RIGHT TRIANGLE</span>
+                </div>
+                <div class="unlock-item">
+                    <span>3. Longest side opposite 90° angle?</span>
+                    <button class="unlock-btn" onclick="unlockKey(this)">Unlock 🔑</button>
+                    <span class="answer-badge">HYPOTENUSE</span>
+                </div>
+                <div class="unlock-item">
+                    <span>4. Shape with total interior angle 180°?</span>
+                    <button class="unlock-btn" onclick="unlockKey(this)">Unlock 🔑</button>
+                    <span class="answer-badge">TRIANGLE</span>
+                </div>
+                <div class="unlock-item">
+                    <span>5. Side beside the angle, excluding hypotenuse?</span>
+                    <button class="unlock-btn" onclick="unlockKey(this)">Unlock 🔑</button>
+                    <span class="answer-badge">ADJACENT</span>
+                </div>
+
+                <div id="unlock-banner" style="display: none; background: linear-gradient(135deg, #059669, #10b981); color: white; padding: 12px; border-radius: 10px; text-align: center; font-weight: bold; margin-top: 10px;">
+                    🎉 SECRET UNLOCKED: T - R - I - G - O (TRIGONOMETRY)!
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TAB 2: DYNAMIC TRIANGLE EXPLORER -->
+    <section id="tab-interactive" class="tab-content">
+        <div class="card">
+            <h2>📐 Dynamic Triangle Explorer (Real-Time Numbers Inside)</h2>
+            <p style="color: var(--text-muted); margin-bottom: 15px;">
+                Drag the sliders below. Notice how side lengths and angle degrees update <strong>DIRECTLY INSIDE / ALONG</strong> the triangle in real time!
+            </p>
+
+            <div class="grid-2">
+                <div class="visualizer-container">
+                    <svg id="dyn-svg" class="triangle-svg" viewBox="0 0 440 300">
+                        <!-- Triangle Base Grid Lines -->
+                        <line id="svg-adj-line" x1="60" y1="230" x2="320" y2="230" stroke="#10b981" stroke-width="4" />
+                        <line id="svg-opp-line" x1="320" y1="230" x2="320" y2="70" stroke="#f43f5e" stroke-width="4" />
+                        <line id="svg-hyp-line" x1="60" y1="230" x2="320" y2="70" stroke="#38bdf8" stroke-width="4" />
+
+                        <!-- Right Angle Square -->
+                        <path id="svg-right-mark" d="M 300 230 L 300 210 L 320 210" fill="none" stroke="#f59e0b" stroke-width="2" />
+
+                        <!-- Angle Theta Arc -->
+                        <path id="svg-angle-arc" d="M 90 230 A 30 30 0 0 0 84 212" fill="none" stroke="#f59e0b" stroke-width="2" />
+
+                        <!-- REAL-TIME NUMBERS INSIDE THE TRIANGLE -->
+                        <text id="in-angle-txt" x="98" y="222" fill="#f59e0b" font-weight="bold" font-size="13">θ = 36.87°</text>
+                        <text id="in-adj-txt" x="190" y="218" fill="#10b981" font-weight="bold" font-size="14" text-anchor="middle">Adj = 8.0</text>
+                        <text id="in-opp-txt" x="305" y="150" fill="#f43f5e" font-weight="bold" font-size="14" text-anchor="end">Opp = 6.0</text>
+                        <text id="in-hyp-txt" x="175" y="130" fill="#38bdf8" font-weight="bold" font-size="14" text-anchor="end">Hyp = 10.0</text>
+                    </svg>
+
+                    <div class="slider-control">
+                        <label style="color: var(--accent-green); font-weight: bold;">Adjacent (Base): <span id="lbl-base">8</span></label>
+                        <input type="range" id="rng-base" min="4" max="14" value="8" step="0.5" oninput="updateDynamicTriangle()">
+                    </div>
+                    <div class="slider-control">
+                        <label style="color: var(--accent-pink); font-weight: bold;">Opposite (Height): <span id="lbl-height">6</span></label>
+                        <input type="range" id="rng-height" min="3" max="12" value="6" step="0.5" oninput="updateDynamicTriangle()">
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="color: var(--accent-blue);">Live Calculated Ratios</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px;">Reference Angle &theta; = <strong id="live-angle-val" style="color: #fff;">36.87°</strong></p>
+
+                    <div class="formula-box soh">
+                        <div class="formula-math" style="color: var(--accent-blue);">SOH: sin(&theta;) = Opp / Hyp</div>
+                        <div id="live-sin" style="margin-top: 4px;">sin(&theta;) = 6 / 10 = <strong>0.6000</strong></div>
+                    </div>
+
+                    <div class="formula-box cah">
+                        <div class="formula-math" style="color: var(--accent-green);">CAH: cos(&theta;) = Adj / Hyp</div>
+                        <div id="live-cos" style="margin-top: 4px;">cos(&theta;) = 8 / 10 = <strong>0.8000</strong></div>
+                    </div>
+
+                    <div class="formula-box toa">
+                        <div class="formula-math" style="color: var(--accent-pink);">TOA: tan(&theta;) = Opp / Adj</div>
+                        <div id="live-tan" style="margin-top: 4px;">tan(&theta;) = 6 / 8 = <strong>0.7500</strong></div>
+                    </div>
+
+                    <div style="background: rgba(245, 158, 11, 0.1); border: 1px solid var(--accent-amber); border-radius: 10px; padding: 12px; margin-top: 15px; font-size: 0.88rem;">
+                        <strong>💡 Key Insight:</strong> Hypotenuse is fixed across from 90°. Notice how changing side lengths instantly modifies the trigonometric values!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TAB 3: SOH-CAH-TOA RATIOS -->
+    <section id="tab-sohcahtoa" class="tab-content">
+        <div class="card">
+            <h2>📖 Primary Trigonometric Ratios Overview</h2>
+            <div class="grid-3">
+                <div class="card" style="background: rgba(56, 189, 248, 0.05); border-color: var(--accent-blue);">
+                    <h3 style="color: var(--accent-blue);">S - O - H</h3>
+                    <p style="font-size: 1.1rem; font-weight: bold; margin: 6px 0;">SINE Ratio</p>
+                    <div class="formula-math">sin(&theta;) = Opp / Hyp</div>
+                </div>
+
+                <div class="card" style="background: rgba(16, 185, 129, 0.05); border-color: var(--accent-green);">
+                    <h3 style="color: var(--accent-green);">C - A - H</h3>
+                    <p style="font-size: 1.1rem; font-weight: bold; margin: 6px 0;">COSINE Ratio</p>
+                    <div class="formula-math">cos(&theta;) = Adj / Hyp</div>
+                </div>
+
+                <div class="card" style="background: rgba(244, 63, 94, 0.05); border-color: var(--accent-pink);">
+                    <h3 style="color: var(--accent-pink);">T - O - A</h3>
+                    <p style="font-size: 1.1rem; font-weight: bold; margin: 6px 0;">TANGENT Ratio</p>
+                    <div class="formula-math">tan(&theta;) = Opp / Adj</div>
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ratio</th>
+                        <th>Abbreviation</th>
+                        <th>Formula</th>
+                        <th>Sides Compared</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Sine</td><td>sin(&theta;)</td><td>Opposite / Hypotenuse</td><td>Opposite &divide; Hypotenuse</td></tr>
+                    <tr><td>Cosine</td><td>cos(&theta;)</td><td>Adjacent / Hypotenuse</td><td>Adjacent &divide; Hypotenuse</td></tr>
+                    <tr><td>Tangent</td><td>tan(&theta;)</td><td>Opposite / Adjacent</td><td>Opposite &divide; Adjacent</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- TAB 4: GUIDED PRACTICE -->
+    <section id="tab-practice" class="tab-content">
+        <div class="card">
+            <h2>✍️ Guided Practice: Triangle ABC</h2>
+            <p style="color: var(--text-muted); margin-bottom: 15px;">Triangle ABC with &angle;A = 90°, AC = 6, AB = 8, BC = 10. Reference Angle: B.</p>
+            
+            <div class="grid-2">
+                <div class="visualizer-container">
+                    <svg width="300" height="220" viewBox="0 0 300 220">
+                        <polygon points="40,180 260,180 40,30" fill="rgba(56, 189, 248, 0.1)" stroke="#38bdf8" stroke-width="3" />
+                        <path d="M 40 160 L 60 160 L 60 180" fill="none" stroke="#f59e0b" stroke-width="2" />
+                        <text x="25" y="195" fill="#fff" font-weight="bold">A (90°)</text>
+                        <text x="270" y="195" fill="#fff" font-weight="bold">B (&theta;)</text>
+                        <text x="25" y="25" fill="#fff" font-weight="bold">C</text>
+                        <text x="150" y="100" fill="#38bdf8" font-weight="bold">BC = 10</text>
+                        <text x="140" y="200" fill="#10b981" font-weight="bold">AB = 8</text>
+                        <text x="10" y="110" fill="#f43f5e" font-weight="bold">AC = 6</text>
+                    </svg>
+                </div>
+
+                <div>
+                    <div style="margin-bottom: 12px;">
+                        <p><strong>Practice 1: What is sin(B)?</strong></p>
+                        <p style="font-size: 0.9rem; color: var(--text-muted);">sin(B) = Opposite / Hypotenuse = 6 / 10 = <strong>3/5 = 0.6</strong></p>
+                    </div>
+                    <div style="margin-bottom: 12px;">
+                        <p><strong>Practice 2: What is cos(B)?</strong></p>
+                        <p style="font-size: 0.9rem; color: var(--text-muted);">cos(B) = Adjacent / Hypotenuse = 8 / 10 = <strong>4/5 = 0.8</strong></p>
+                    </div>
+                    <div>
+                        <p><strong>Practice 3: What is tan(B)?</strong></p>
+                        <p style="font-size: 0.9rem; color: var(--text-muted);">tan(B) = Opposite / Adjacent = 6 / 8 = <strong>3/4 = 0.75</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TAB 5: REAL-LIFE SCENARIOS (VECTOR SVG GRAPHICS) -->
+    <section id="tab-realworld" class="tab-content">
+        <div class="card">
+            <h2>🏙️ Real-Life Scenarios (Geometric Diagrams)</h2>
+            <p style="color: var(--text-muted); margin-bottom: 15px;">
+                Select a real-world application to see its clean geometric vector model and side breakdowns.
+            </p>
+
+            <div class="scenario-selector">
+                <button class="scenario-btn active" onclick="loadVectorScenario('ladder')">🪜 Leaning Ladder</button>
+                <button class="scenario-btn" onclick="loadVectorScenario('ramp')">♿ Wheelchair Ramp</button>
+                <button class="scenario-btn" onclick="loadVectorScenario('shadow')">🌳 Tree Shadow</button>
+                <button class="scenario-btn" onclick="loadVectorScenario('flagpole')">🚩 Flagpole Cable</button>
+            </div>
+
+            <div class="grid-2">
+                <div class="visualizer-container">
+                    <svg id="vector-scen-svg" width="360" height="260" viewBox="0 0 360 260">
+                        <!-- Content dynamically inserted via JS -->
+                    </svg>
+                </div>
+                <div id="vector-scen-desc">
+                    <!-- Scenario description dynamically inserted via JS -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TAB 6: HOTS ANGLE SWAP -->
+    <section id="tab-hots" class="tab-content">
+        <div class="card">
+            <h2>🧠 HOTS: Angle Perspective Swap</h2>
+            <p style="color: var(--text-muted); margin-bottom: 15px;">
+                <strong>Question:</strong> What happens if Student A chooses angle at ground (&theta;) and Student B chooses angle at top of wall (&alpha;)?
+            </p>
+
+            <div style="background: rgba(15, 23, 42, 0.8); border: 1px solid var(--accent-indigo); padding: 20px; border-radius: 14px;">
+                <h3 style="color: var(--accent-amber);">Answer: Opposite & Adjacent SWAP Positions!</h3>
+                <p style="margin-top: 8px;">The <strong>Hypotenuse NEVER changes</strong> because it is always directly across from 90°. However, Opposite and Adjacent depend entirely on which acute angle you pick!</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Reference Angle</th>
+                            <th>Opposite Side</th>
+                            <th>Adjacent Side</th>
+                            <th>Hypotenuse</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Ground Angle (&theta;)</strong></td>
+                            <td>Vertical Wall</td>
+                            <td>Ground Distance</td>
+                            <td>Ladder (Fixed)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Top Angle (&alpha;)</strong></td>
+                            <td>Ground Distance <span style="color: var(--accent-pink);">(Swapped!)</span></td>
+                            <td>Vertical Wall <span style="color: var(--accent-pink);">(Swapped!)</span></td>
+                            <td>Ladder (Fixed)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- TAB 7: 10-ITEM EXIT TICKET -->
+    <section id="tab-exit" class="tab-content">
+        <div class="card">
+            <h2>📝 10-Item Exit Assessment Ticket</h2>
+            <p style="color: var(--text-muted); margin-bottom: 20px;">Complete all 10 questions to view your final score and download your certificate!</p>
+
+            <form id="exit-quiz-form">
+                <!-- Q1 -->
+                <div class="quiz-card">
+                    <p><strong>1. What is the longest side of a right triangle, located directly opposite the 90° angle?</strong></p>
+                    <button type="button" class="quiz-opt" onclick="selectOpt(this, 'q1', 0)">A. Adjacent Side</button>
+                    <button type="button" class="quiz-opt" onclick="selectOpt(this, 'q1', 1)">B. Hypotenuse</button>
+                    <button type="button" class="quiz-opt" onclick="selectOpt(this, 'q1', 2)">C. Opposite Side</button>
+                </div>
+
+                <!-- Q2 -->
+                <div class="quiz-card">
+                    <p><strong>2. Which trigonometric ratio compares the Opposite side to the Adjacent side?</strong></p>
+                    <button type="button" class="quiz-opt" onclick="selectOpt(this, 'q2', 0)">A. Sine (SOH)</button>
+                    <button type="button" class="quiz-opt" onclick="selectOpt(this, 'q2', 1)">B. Cosine (CAH)</button>
+                    <button type="button" class="quiz-opt" onclick="selectOpt(this, 'q2', 2)">C. Tangent (TOA)</button>
+                </div>
+
+                <!-- Q3 -->
+                <div class="quiz-card">
+                    <p><strong>3. In a ladder leaning against a wall, what real-life object represents the Hypotenuse?</strong></p>
+                    <button type="button" class="quiz-opt" onclick="selectOpt(this, 'q3', 0)">A. The Ladder itself</button>
+                    <button type="button" class="quiz-opt" onclick="selectOpt(this, 'q3', 1)">B. The Height of the Wall</button>
+                    <button type="button" class="quiz-opt" onclick="selectOpt(this, 'q3', 2)">C. The Ground Distance</button>
+                </div>
+
+                <!-- Q4 -->
+                <div class="quiz-card">
+                    <p><strong>4. In Right Triangle ABC (&angle;A = 90°, AC = 6, AB = 8, BC = 10), what is the value of cos(B)?</strong></p>
+                    <button type="button" class="quiz-opt" onclick="selectOpt(this, 'q4', 0)">A. 6 / 10 = 0.6</button>
+                    <button type="button" class="quiz-opt" onclick="selectOpt(this, 'q4', 1)">B. 8 / 10 = 0.8</button>
+                    <button type="button" class="quiz-opt" onclick="selectOpt(this, 'q4', 2)">C. 6 / 8 = 0.75</button>
+                </div>
+
+                <!-- Q5 -->
+                <div class="quiz-card">
+                    <p><strong>5. What happens to the Opposite and Adjacent sides when you swap your reference angle from ground (&theta;) to top wall (&alpha;)?</strong></p>
+                    <button type="button" class="quiz-opt" onclick="selectOpt(this, 'q5', 0)">A. They swap positions with each other</button>
+                    <button type="button" class="quiz-opt" onclick="selectOpt(this, 'q5', 1)">B. They stay in the exact same position</button>
+                    <button type="button" class="quiz-opt" onclick="selectOpt(this, 'q5', 2)">C. The hypotenuse changes into the opposite side</button>
+                </div>
+
+                <!-- Q6 -->
+                <div class="quiz-card">
+                    <p><strong>6. If you know the Adjacent side length and the Hypotenuse, which ratio should you use?</strong></p>
+                    <button type="button" class="quiz-opt" onclick="selectOpt(this, 'q6', 0)">A. Sine (SOH)</button>
+                    <button type="button" class="quiz-opt" onclick="selectOpt(this, 'q6', 1)">B. Cosine (CAH)</button>
+                    <button type="button" class="quiz-opt" onclick="selectOpt(this, 'q6', 2)">C. Tangent (TOA)</button>
+                </div>
+
+                <!-- Q7 -->
+                <div class="quiz-card">
+                    <p><strong>7. In Right Triangle ABC (AC = 6, AB = 8, BC = 10), what is tan(B)?</strong></p>
+                    <button type="button" class="quiz-opt" onclick="selectOpt(this, 'q7', 0)">A. 6 / 10 = 0.6</button>
+                    <button type="button" class="quiz-opt" onclick="selectOpt(this, 'q7', 1)">B. 8 / 10 = 0.8</button>
+                    <button type="button" class="quiz-opt" onclick="selectOpt(this, 'q7', 2)">C. 6 / 8 = 0.75</button>
+                </div>
+
+                <!-- Q8 -->
+                <div class="quiz-card">
+                    <p><strong>8. Which side NEVER changes position regardless of which acute reference angle is chosen?</strong></p>
+                    <button type="button" class="quiz-opt" onclick="selectOpt(this, 'q8', 0)">A. Opposite Side</button>
+                    <button type="button" class="quiz-opt" onclick="selectOpt(this, 'q8', 1)">B. Hypotenuse</button>
+                    <button type="button" class="quiz-opt" onclick="selectOpt(this, 'q8', 2)">C. Adjacent Side</button>
+                </div>
+
+                <!-- Q9 -->
+                <div class="quiz-card">
+                    <p><strong>9. A tree is 12m tall and casts a shadow 12m long on the ground. What is tan(&theta;)?</strong></p>
+                    <button type="button" class="quiz-opt" onclick="selectOpt(this, 'q9', 0)">A. 0.5</button>
+                    <button type="button" class="quiz-opt" onclick="selectOpt(this, 'q9', 1)">B. 1.0</button>
+                    <button type="button" class="quiz-opt" onclick="selectOpt(this, 'q9', 2)">C. 12.0</button>
+                </div>
+
+                <!-- Q10 -->
+                <div class="quiz-card">
+                    <p><strong>10. What is the standard 9-letter memory aid mnemonic for trigonometric ratios?</strong></p>
+                    <button type="button" class="quiz-opt" onclick="selectOpt(this, 'q10', 0)">A. SOH-CAH-TOA</button>
+                    <button type="button" class="quiz-opt" onclick="selectOpt(this, 'q10', 1)">B. PYTHAGORAS</button>
+                    <button type="button" class="quiz-opt" onclick="selectOpt(this, 'q10', 2)">C. SIN-COS-TAN</button>
+                </div>
+
+                <button type="button" class="start-btn" onclick="submitExitTicket()">Submit Exit Ticket & View Score 🏆</button>
+            </form>
+
+            <!-- CERTIFICATE & RESULT CARD -->
+            <div id="cert-card" class="cert-card">
+                <p style="text-transform: uppercase; letter-spacing: 2px; color: var(--accent-amber); font-weight: bold;">Official Achievement Summary</p>
+                <h2 id="cert-student-name" style="font-size: 2.2rem; color: #fff; margin: 10px 0;">Student Name</h2>
+                <p id="cert-student-section" style="color: var(--accent-blue);">Grade & Section</p>
+                
+                <div class="cert-score" id="cert-score-display">0 / 10</div>
+                <p id="cert-percentage" style="font-size: 1.2rem; font-weight: bold; color: var(--accent-green);"></p>
+                
+                <div class="meta-info-box">
+                    <div>⏱️ <strong>Study Duration / Time Taken:</strong> <span id="cert-duration" style="color: var(--accent-pink); font-weight: bold;"></span></div>
+                    <div>📅 <strong>Date & Time Taken:</strong> <span id="cert-timestamp" style="color: var(--accent-blue);"></span></div>
+                    <div>🔄 <strong>Number of Retakes:</strong> <span id="cert-retakes" style="color: var(--accent-amber);">0 Retakes (Attempt #1)</span></div>
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <button class="action-btn" onclick="downloadScreenshot()">📸 Save Screenshot / Image</button>
+                    <button class="action-btn" style="background: var(--card-bg); color: #fff; border: 1px solid var(--border-color);" onclick="resetQuiz()">🔄 Retake Quiz</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+    // State Tracking
+    let studentData = { name: "Guest Student", section: "Section A" };
+    let quizAnswers = {};
+    let retakeCount = 0;
+    let completionTimestamp = "";
+    let finalScore = 0;
+    
+    // Timer Tracking
+    let startTime = null;
+    let timerInterval = null;
+    let durationFormatted = "";
+
+    const correctAnswers = {
+        q1: 1, q2: 2, q3: 0, q4: 1, q5: 0,
+        q6: 1, q7: 2, q8: 1, q9: 1, q10: 0
+    };
+
+    function startModule() {
+        const nameInput = document.getElementById('student-name-input').value.trim();
+        const secInput = document.getElementById('student-section-input').value.trim();
+
+        if (!nameInput || !secInput) {
+            alert("Please fill in both your name and section to continue!");
+            return;
+        }
+
+        studentData.name = nameInput;
+        studentData.section = secInput;
+
+        document.getElementById('display-student-name').innerText = studentData.name;
+        document.getElementById('display-student-section').innerText = studentData.section;
+
+        document.getElementById('welcome-modal').style.display = 'none';
+
+        // Start Live Timer
+        startTime = Date.now();
+        timerInterval = setInterval(updateLiveTimer, 1000);
+    }
+
+    function updateLiveTimer() {
+        if (!startTime) return;
+        const elapsedSecs = Math.floor((Date.now() - startTime) / 1000);
+        const mins = Math.floor(elapsedSecs / 60).toString().padStart(2, '0');
+        const secs = (elapsedSecs % 60).toString().padStart(2, '0');
+        document.getElementById('display-timer').innerText = `${mins}:${secs}`;
+    }
+
+    function switchTab(tabId) {
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+        
+        document.getElementById(tabId).classList.add('active');
+        event.currentTarget.classList.add('active');
+    }
+
+    let unlockedKeys = 0;
+    function unlockKey(btn) {
+        btn.style.display = 'none';
+        btn.nextElementSibling.style.display = 'inline-block';
+        unlockedKeys++;
+        if(unlockedKeys === 5) {
+            document.getElementById('unlock-banner').style.display = 'block';
+        }
+    }
+
+    // Dynamic SVG Triangle Visualizer with NUMBERS INSIDE
+    function updateDynamicTriangle() {
+        const base = parseFloat(document.getElementById('rng-base').value);
+        const height = parseFloat(document.getElementById('rng-height').value);
+
+        document.getElementById('lbl-base').innerText = base;
+        document.getElementById('lbl-height').innerText = height;
+
+        const x0 = 60, y0 = 230;
+        const scale = 18;
+        const x1 = x0 + base * scale;
+        const y1 = y0 - height * scale;
+
+        // Lines
+        document.getElementById('svg-adj-line').setAttribute('x2', x1);
+        document.getElementById('svg-opp-line').setAttribute('x1', x1);
+        document.getElementById('svg-opp-line').setAttribute('x2', x1);
+        document.getElementById('svg-opp-line').setAttribute('y2', y1);
+        document.getElementById('svg-hyp-line').setAttribute('x2', x1);
+        document.getElementById('svg-hyp-line').setAttribute('y2', y1);
+
+        // Right angle mark
+        document.getElementById('svg-right-mark').setAttribute('d', `M ${x1-18} ${y0} L ${x1-18} ${y0-18} L ${x1} ${y0-18}`);
+
+        const hyp = Math.sqrt(base*base + height*height);
+        const thetaRad = Math.atan(height / base);
+        const thetaDeg = (thetaRad * 180 / Math.PI).toFixed(2);
+
+        // NUMBERS INSIDE SVG
+        document.getElementById('in-angle-txt').innerText = `θ=${thetaDeg}°`;
+        document.getElementById('in-adj-txt').setAttribute('x', x0 + (base*scale)/2);
+        document.getElementById('in-adj-txt').innerText = `Adj = ${base}`;
+        document.getElementById('in-opp-txt').setAttribute('x', x1 - 10);
+        document.getElementById('in-opp-txt').setAttribute('y', y0 - (height*scale)/2);
+        document.getElementById('in-opp-txt').innerText = `Opp = ${height}`;
+        document.getElementById('in-hyp-txt').setAttribute('x', x0 + (base*scale)/2 - 10);
+        document.getElementById('in-hyp-txt').setAttribute('y', y0 - (height*scale)/2 - 10);
+        document.getElementById('in-hyp-txt').innerText = `Hyp = ${hyp.toFixed(1)}`;
+
+        // Calculations
+        document.getElementById('live-angle-val').innerText = `${thetaDeg}°`;
+        document.getElementById('live-sin').innerHTML = `sin(&theta;) = ${height} / ${hyp.toFixed(1)} = <strong>${(height/hyp).toFixed(4)}</strong>`;
+        document.getElementById('live-cos').innerHTML = `cos(&theta;) = ${base} / ${hyp.toFixed(1)} = <strong>${(base/hyp).toFixed(4)}</strong>`;
+        document.getElementById('live-tan').innerHTML = `tan(&theta;) = ${height} / ${base} = <strong>${(height/base).toFixed(4)}</strong>`;
+    }
+
+    // Vector Diagrams for Real-Life Scenarios
+    const vectorScenarios = {
+        ladder: {
+            svg: `<line x1="50" y1="220" x2="310" y2="220" stroke="#64748b" stroke-width="6"/>
+                  <line x1="50" y1="220" x2="50" y2="40" stroke="#64748b" stroke-width="6"/>
+                  <line x1="310" y1="220" x2="50" y2="40" stroke="#38bdf8" stroke-width="8" stroke-dasharray="10 4"/>
+                  <path d="M 50 200 L 70 200 L 70 220" fill="none" stroke="#f59e0b" stroke-width="2"/>
+                  <path d="M 270 220 A 40 40 0 0 0 282 195" fill="none" stroke="#f59e0b" stroke-width="2"/>
+                  <text x="250" y="210" fill="#f59e0b" font-weight="bold">θ</text>
+                  <text x="180" y="120" fill="#38bdf8" font-weight="bold">Ladder (Hypotenuse)</text>
+                  <text x="15" y="130" fill="#f43f5e" font-weight="bold">Wall (Opposite)</text>
+                  <text x="180" y="245" fill="#10b981" font-weight="bold" text-anchor="middle">Ground Distance (Adjacent)</text>`,
+            desc: `<h3>🪜 Leaning Ladder</h3>
+                   <p>When a ladder leans against a vertical wall, it forms a right triangle with the wall and ground.</p>
+                   <ul style="margin: 12px 0 12px 20px; color: var(--text-muted);">
+                       <li><strong>Hypotenuse:</strong> The Ladder itself</li>
+                       <li><strong>Opposite Side (&theta; at ground):</strong> The Wall height</li>
+                       <li><strong>Adjacent Side (&theta; at ground):</strong> Ground distance from wall</li>
+                   </ul>
+                   <div class="formula-box soh"><span class="formula-math">sin(&theta;) = Wall Height / Ladder Length</span></div>`
+        },
+        ramp: {
+            svg: `<polygon points="40,220 310,220 310,100" fill="rgba(16,185,129,0.1)" stroke="#10b981" stroke-width="3"/>
+                  <line x1="40" y1="220" x2="310" y2="100" stroke="#38bdf8" stroke-width="6"/>
+                  <path d="M 290 220 L 290 200 L 310 200" fill="none" stroke="#f59e0b" stroke-width="2"/>
+                  <path d="M 80 220 A 40 40 0 0 0 74 200" fill="none" stroke="#f59e0b" stroke-width="2"/>
+                  <text x="90" y="212" fill="#f59e0b" font-weight="bold">θ</text>
+                  <text x="160" y="145" fill="#38bdf8" font-weight="bold">Ramp Surface (Hypotenuse)</text>
+                  <text x="320" y="165" fill="#f43f5e" font-weight="bold">Height (Opp)</text>
+                  <text x="175" y="245" fill="#10b981" font-weight="bold" text-anchor="middle">Ground Base (Adjacent)</text>`,
+            desc: `<h3>♿ Wheelchair Ramp</h3>
+                   <p>Engineers design wheelchair ramps using trigonometric ratios to guarantee safe slopes for accessibility.</p>
+                   <ul style="margin: 12px 0 12px 20px; color: var(--text-muted);">
+                       <li><strong>Hypotenuse:</strong> Sloped surface of the ramp</li>
+                       <li><strong>Opposite Side:</strong> Vertical elevation height</li>
+                       <li><strong>Adjacent Side:</strong> Horizontal ground span</li>
+                   </ul>
+                   <div class="formula-box soh"><span class="formula-math">sin(&theta;) = Elevation / Sloped Ramp Length</span></div>`
+        },
+        shadow: {
+            svg: `<line x1="60" y1="220" x2="310" y2="220" stroke="#f59e0b" stroke-width="4" stroke-dasharray="6 3"/>
+                  <line x1="60" y1="220" x2="60" y2="40" stroke="#10b981" stroke-width="8"/>
+                  <line x1="60" y1="40" x2="310" y2="220" stroke="#38bdf8" stroke-width="3"/>
+                  <path d="M 60 200 L 80 200 L 80 220" fill="none" stroke="#f59e0b" stroke-width="2"/>
+                  <path d="M 270 220 A 40 40 0 0 0 282 195" fill="none" stroke="#f59e0b" stroke-width="2"/>
+                  <text x="250" y="210" fill="#f59e0b" font-weight="bold">θ</text>
+                  <text x="75" y="130" fill="#10b981" font-weight="bold">Tree Height (Opposite)</text>
+                  <text x="185" y="245" fill="#f59e0b" font-weight="bold" text-anchor="middle">Shadow Length (Adjacent)</text>
+                  <text x="190" y="120" fill="#38bdf8" font-weight="bold">Sun Ray (Hypotenuse)</text>`,
+            desc: `<h3>🌳 Tree & Shadow</h3>
+                   <p>Determine the height of a tall tree by measuring its shadow length and the angle of elevation to the sun.</p>
+                   <ul style="margin: 12px 0 12px 20px; color: var(--text-muted);">
+                       <li><strong>Opposite Side:</strong> Vertical Tree Height</li>
+                       <li><strong>Adjacent Side:</strong> Shadow length cast on ground</li>
+                       <li><strong>Ratio Used:</strong> Tangent (TOA)</li>
+                   </ul>
+                   <div class="formula-box toa"><span class="formula-math">tan(&theta;) = Tree Height / Shadow Length</span></div>`
+        },
+        flagpole: {
+            svg: `<line x1="50" y1="220" x2="290" y2="220" stroke="#64748b" stroke-width="4"/>
+                  <line x1="290" y1="220" x2="290" y2="40" stroke="#e2e8f0" stroke-width="6"/>
+                  <line x1="50" y1="220" x2="290" y2="40" stroke="#38bdf8" stroke-width="5"/>
+                  <path d="M 270 220 L 270 200 L 290 200" fill="none" stroke="#f59e0b" stroke-width="2"/>
+                  <path d="M 90 220 A 40 40 0 0 0 84 200" fill="none" stroke="#f59e0b" stroke-width="2"/>
+                  <text x="100" y="212" fill="#f59e0b" font-weight="bold">θ</text>
+                  <text x="150" y="120" fill="#38bdf8" font-weight="bold">Guy Wire (Hypotenuse)</text>
+                  <text x="300" y="130" fill="#f43f5e" font-weight="bold">Flagpole (Opp)</text>
+                  <text x="170" y="245" fill="#10b981" font-weight="bold" text-anchor="middle">Anchor Distance (Adjacent)</text>`,
+            desc: `<h3>🚩 Flagpole Support Guy Wire</h3>
+                   <p>A steel guy wire anchors a tall flagpole securely to the ground to keep it standing vertically in strong winds.</p>
+                   <ul style="margin: 12px 0 12px 20px; color: var(--text-muted);">
+                       <li><strong>Hypotenuse:</strong> Tensioned Wire Cable</li>
+                       <li><strong>Opposite Side:</strong> Vertical Flagpole height</li>
+                       <li><strong>Adjacent Side:</strong> Distance from pole base to ground anchor</li>
+                   </ul>
+                   <div class="formula-box cah"><span class="formula-math">cos(&theta;) = Anchor Distance / Wire Length</span></div>`
+        }
+    };
+
+    function loadVectorScenario(key) {
+        document.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+
+        const sc = vectorScenarios[key];
+        document.getElementById('vector-scen-svg').innerHTML = sc.svg;
+        document.getElementById('vector-scen-desc').innerHTML = sc.desc;
+    }
+
+    // Quiz Selection & Grading
+    function selectOpt(btn, qId, optIndex) {
+        const parent = btn.parentElement;
+        parent.querySelectorAll('.quiz-opt').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        quizAnswers[qId] = optIndex;
+    }
+
+    function submitExitTicket() {
+        if (Object.keys(quizAnswers).length < 10) {
+            alert("Please answer all 10 questions before submitting!");
+            return;
+        }
+
+        finalScore = 0;
+        for (let i = 1; i <= 10; i++) {
+            const qKey = 'q' + i;
+            if (quizAnswers[qKey] === correctAnswers[qKey]) {
+                finalScore++;
+            }
+        }
+
+        // Calculate Elapsed Time
+        const totalSecs = Math.floor((Date.now() - startTime) / 1000);
+        const mins = Math.floor(totalSecs / 60);
+        const secs = totalSecs % 60;
+        durationFormatted = `${mins} min(s) ${secs} sec(s)`;
+
+        const pct = (finalScore / 10) * 100;
+        const now = new Date();
+        completionTimestamp = now.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) + ' at ' + now.toLocaleTimeString('en-US');
+
+        document.getElementById('cert-student-name').innerText = studentData.name;
+        document.getElementById('cert-student-section').innerText = `Class / Section: ${studentData.section}`;
+        document.getElementById('cert-score-display').innerText = `${finalScore} / 10`;
+        document.getElementById('cert-percentage').innerText = `Score Percentage: ${pct}%`;
+        document.getElementById('cert-duration').innerText = durationFormatted;
+        document.getElementById('cert-timestamp').innerText = completionTimestamp;
+        
+        const attemptTxt = retakeCount === 0 ? "0 Retakes (Attempt #1)" : `${retakeCount} Retake(s) (Attempt #${retakeCount + 1})`;
+        document.getElementById('cert-retakes').innerText = attemptTxt;
+
+        document.getElementById('cert-card').style.display = 'block';
+        document.getElementById('cert-card').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function resetQuiz() {
+        retakeCount++;
+        quizAnswers = {};
+        document.querySelectorAll('.quiz-opt').forEach(b => b.classList.remove('selected'));
+        document.getElementById('cert-card').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Native Canvas PNG Screenshot Generator
+    function downloadScreenshot() {
+        const canvas = document.createElement('canvas');
+        canvas.width = 900;
+        canvas.height = 580;
+        const ctx = canvas.getContext('2d');
+
+        // Dark Background Gradient
+        const grad = ctx.createLinearGradient(0, 0, 900, 580);
+        grad.addColorStop(0, '#0f172a');
+        grad.addColorStop(1, '#1e1b4b');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, 900, 580);
+
+        // Gold Border Frame
+        ctx.strokeStyle = '#f59e0b';
+        ctx.lineWidth = 8;
+        ctx.strokeRect(20, 20, 860, 540);
+
+        // Header Title
+        ctx.fillStyle = '#38bdf8';
+        ctx.font = 'bold 22px Segoe UI, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('OFFICIAL TRIGONOMETRY ASSESSMENT RESULT', 450, 65);
+
+        // Subtitle
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '16px Segoe UI, sans-serif';
+        ctx.fillText('SOH-CAH-TOA Learning Module Completion', 450, 95);
+
+        // Student Name
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 36px Segoe UI, sans-serif';
+        ctx.fillText(studentData.name, 450, 155);
+
+        // Section
+        ctx.fillStyle = '#38bdf8';
+        ctx.font = '20px Segoe UI, sans-serif';
+        ctx.fillText(`Class/Section: ${studentData.section}`, 450, 190);
+
+        // Score Circle Badge
+        ctx.fillStyle = 'rgba(245, 158, 11, 0.15)';
+        ctx.beginPath();
+        ctx.arc(450, 275, 50, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = '#f59e0b';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+
+        ctx.fillStyle = '#f59e0b';
+        ctx.font = 'bold 36px Segoe UI, sans-serif';
+        ctx.fillText(`${finalScore} / 10`, 450, 287);
+
+        // Percentage
+        ctx.fillStyle = '#10b981';
+        ctx.font = 'bold 22px Segoe UI, sans-serif';
+        ctx.fillText(`Grade: ${(finalScore/10)*100}%`, 450, 360);
+
+        // Metadata Box
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+        ctx.fillRect(120, 390, 660, 110);
+        ctx.strokeStyle = '#334155';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(120, 390, 660, 110);
+
+        ctx.fillStyle = '#cbd5e1';
+        ctx.font = '15px Segoe UI, sans-serif';
+        ctx.fillText(`⏱️ Study Duration / Time Taken: ${durationFormatted}`, 450, 420);
+        ctx.fillText(`📅 Date & Time Completed: ${completionTimestamp}`, 450, 450);
+        
+        const retakeStr = retakeCount === 0 ? "0 Retakes (First Attempt)" : `${retakeCount} Retake(s) (Attempt #${retakeCount + 1})`;
+        ctx.fillText(`🔄 Assessment Attempt Status: ${retakeStr}`, 450, 480);
+
+        // Trigger Download
+        const link = document.createElement('a');
+        link.download = `${studentData.name.replace(/\s+/g, '_')}_Trigonometry_ScoreCard.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+    }
+
+    window.onload = function() {
+        updateDynamicTriangle();
+        loadVectorScenario('ladder');
+    };
+</script>
+
+</body>
+</html>
